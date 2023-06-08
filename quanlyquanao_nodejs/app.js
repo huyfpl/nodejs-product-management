@@ -37,6 +37,6 @@ app.use('/api',apiSanPham)
 
 
 // Khởi động server
-app.listen(app.get('port'), () => {
+app.listen(app.get('port'), '192.168.0.105', () => {
     console.log(`Server đang khởi động ở cổng ${app.get('port')}`);
-});
+  });
