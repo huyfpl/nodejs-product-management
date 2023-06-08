@@ -7,6 +7,7 @@ let mysql = require('mysql');
 let myConnection = require('express-myconnection');
 let morgan = require('morgan');
 const app = express();
+const apiSanPham =require('./routers/api')
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -32,7 +33,7 @@ app.use(myConnection(mysql, {
 
 
 app.use(Router);
-
+app.use('/api',apiSanPham)
 
 
 // Khởi động server
