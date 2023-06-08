@@ -1,4 +1,33 @@
 <style>
+  .container {
+    max-width: 800px;
+    margin: 10px auto;
+  }
+
+  .search-form {
+    margin-bottom: 20px;
+  }
+
+  .input-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-control {
+    width: 200px;
+  }
+
+  .btn-primary {
+    margin-left: 10px;
+  }
+
+  h1 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
   table {
     width: 100%;
     text-align: center;
@@ -27,7 +56,9 @@
   table th:nth-child(4),
   table td:nth-child(4),
   table th:nth-child(5),
-  table td:nth-child(5) {
+  table td:nth-child(5),
+  table th:nth-child(6),
+  table td:nth-child(6) {
     width: 10%;
   }
 
@@ -52,61 +83,65 @@
   }
 </style>
 
-<div class="container" style="max-width: 800px; margin: 10px auto;">
+<div class="container">
   <form action="/search" method="get" class="search-form">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Enter employee name" name="name" style="width: 200px;">
+      <input type="text" class="form-control" placeholder="Enter employee name" name="name">
       <button type="submit" class="btn btn-primary">Search</button>
     </div>
   </form>
 
-  <a href="/add" style="display: flex; justify-content: center; margin-bottom: 20px;">
+  <a href="/add">
     <h1>Thêm sản phẩm</h1>
   </a>
 
   <table class="table align-middle mb-0 bg-white">
     <thead class="bg-light">
       <tr>
-        <th>Mã </th>
+        <th>Mã</th>
         <th>Tên sản phẩm</th>
         <th>Ảnh sản phẩm</th>
         <th>Size</th>
-        <th>Giá</th>
-        <th>Manage</th>
+        <th>Giá Nhập</th>
+        <th>Giá Bán</th>
+        <th>Số Lượng</th>
+        <th>Quản lý</th>
       </tr>
     </thead>
     <tbody>
       {{#each data}}
       <tr>
-        <td
-          onmouseover="showProductDetail('{{this.masp}}', '{{this.tensp}}', '{{this.imagesp}}', '{{this.sizesp}}', '{{this.giasp}}')"
+        <td onmouseover="showProductDetail('{{this.idSP}}', '{{this.tenSP}}', '{{this.anhSP}}', '{{this.sizeSP}}', '{{this.giaBan}}', '{{this.SoLuong}}')"
           onmouseout="hideProductDetail()">
-          <p class="fw-normal mb-1">{{this.masp}}</p>
+          <p class="fw-normal mb-1">{{this.idSP}}</p>
         </td>
         <td>
-          <p class="fw-normal mb-1">{{this.tensp}}</p>
+          <p class="fw-normal mb-1">{{this.tenSP}}</p>
         </td>
         <td>
           <div class="d-flex align-items-center">
-            <img src="{{this.imagesp}}" alt=" lỗi ảnh ! " class="rounded-circle"
-              style="color: red; font-weight: bold;" />
+            <img src="{{this.anhSP}}" alt="lỗi ảnh!" class="rounded-circle">
           </div>
         </td>
         <td>
-          <p>{{this.sizesp}}</p>
+          <p>{{this.sizeSP}}</p>
         </td>
         <td>
-          <p>{{this.giasp}}</p>
+          <p>{{this.giaNhap}}</p>
         </td>
         <td>
-          <a href="/edit/{{this.masp}}" class="btn btn-link btn-sm btn-rounded btn-edit">Edit</a>
-          <a href="/delete/{{this.masp}}" class="btn btn-link btn-sm btn-rounded btn-delete"
+          <p>{{this.giaBan}}</p>
+        </td>
+        <td>
+          <p>{{this.SoLuong}}</p>
+        </td>
+        <td>
+          <a href="/edit/{{this.idSP}}" class="btn btn-link btn-sm btn-rounded btn-edit">Edit</a>
+          <a href="/delete/{{this.idSP}}" class="btn btn-link btn-sm btn-rounded btn-delete"
             onclick="return confirm('Bạn có muốn xóa thật không?')">Delete</a>
         </td>
       </tr>
       {{/each}}
     </tbody>
-
   </table>
 </div>
-{{!-- // oke --}}

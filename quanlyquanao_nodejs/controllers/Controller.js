@@ -33,7 +33,7 @@ controller.edit_get = (req, res) => {
     const { id } = req.params;
    
     req.getConnection((err, conn) => {
-      conn.query("SELECT * FROM products WHERE masp=?", [id], (err, rows) => {
+      conn.query("SELECT * FROM products WHERE idSP=?", [id], (err, rows) => {
         res.render('edit', { object: rows[0] });
       });
     });
@@ -44,7 +44,7 @@ controller.edit_get = (req, res) => {
     const newProduct = req.body;
     console.log(id);
     req.getConnection((err, conn) => {
-      conn.query('UPDATE products SET ? WHERE masp=?', [newProduct, id], (err, rows) => {
+      conn.query('UPDATE products SET ? WHERE idSP=?', [newProduct, id], (err, rows) => {
         res.redirect('/');
       });
     });
@@ -53,7 +53,7 @@ controller.edit_get = (req, res) => {
   controller.delete = (req, res) => {
     const { id } = req.params;
     req.getConnection((err, conn) => {
-      conn.query('DELETE FROM products WHERE masp = ?', [id], (err, rows) => {
+      conn.query('DELETE FROM products WHERE idSP = ?', [id], (err, rows) => {
         res.redirect('/');
       });
     });
@@ -61,7 +61,7 @@ controller.edit_get = (req, res) => {
   controller.search = (req, res) => {
     const { name } = req.query;
     req.getConnection((err, conn) => {
-      conn.query('SELECT * FROM products WHERE tensp LIKE ?', `%${name}%`, (err, products) => {
+      conn.query('SELECT * FROM products WHERE tenSP LIKE ?', `%${name}%`, (err, products) => {
         if (err) {
           res.json(err);
         }
