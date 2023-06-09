@@ -34,7 +34,8 @@ app.use(myConnection(mysql, {
 
 app.use(Router);
 app.use('/api',apiSanPham)
-
+const publicPath = path.resolve(__dirname, "public");
+app.use(express.static(publicPath));
 
 // Khởi động server
 app.listen(app.get('port'), '192.168.0.102', () => {

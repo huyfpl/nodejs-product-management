@@ -1,3 +1,4 @@
+{{> header_user}}
 <style>
   .container {
     max-width: 100%;
@@ -89,14 +90,15 @@
 <div class="container">
   <form action="/search_user" method="get" class="search-form">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Enter employee name" name="ten">
+      <input type="text" class="form-control" placeholder="Tìm kiếm theo tên user" name="ten">
       <button type="submit" class="btn btn-primary">Search</button>
     </div>
   </form>
 
-  <a href="/add_user">
-    <h1>Thêm user</h1>
+ <a href="/add_user" style="font-size: 30px; font-weight: bold;">
+  Thêm user
   </a>
+
 
   <table class="table align-middle mb-0 bg-white">
     <thead class="bg-light">
@@ -143,3 +145,4 @@
     </tbody>
   </table>
 </div>
+{{> footer}}
