@@ -1,0 +1,46 @@
+<form action="/edit_user/{{object.id}}" method="post" class="container" style="padding: 30px; max-width: 400px; margin: 10px auto; background-color: aquamarine;">
+  <!-- 2 column grid layout with text inputs for the first and last names -->
+  <div class="row mb-4">
+    <div class="form-outline mb-4" style="text-align: center;">
+      <h3>Update</h3>
+    </div>
+
+    <div class="col">
+      <div class="form-outline">
+        <input type="text" id="ten" class="form-control" name="ten" required value="{{object.ten}}" />
+        <label class="form-label" for="form3Example1">Họ và tên</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ảnh input -->
+  <div class="form-outline mb-4">
+    {{#if object.tentaikhoan}}
+    <input type="text" id="tentaikhoan" class="form-control" name="tentaikhoan" value="{{object.tentaikhoan}}" required>
+    <label class="form-label" for="tentaikhoan">Tên tài khoản</label>
+    {{/if}}
+  </div>
+  
+  <div class="form-outline mb-4">
+    <input type="text" id="pass" class="form-control" name="pass" required value="{{object.pass}}" />
+    <label class="form-label" for="form3Example3">mật khẩu</label>
+  </div>
+  
+  <div class="form-outline mb-4">
+    <input type="text" id="dia_chi" class="form-control" name="dia_chi" required value="{{object.dia_chi}}" />
+    <label class="form-label" for="dia_chi">Địa chỉ</label>
+  </div>
+  
+  <div class="form-outline mb-4">
+    <input type="number" id="sdt" class="form-control" name="sdt" required value="{{object.sdt}}" />
+    <label class="form-label" for="sdt">Số điện thoại</label>
+  </div>
+  
+  <div class="form-outline mb-4">
+    <input type="text" id="avatar" class="form-control" name="avatar" required value="{{object.avatar}}" />
+    <label class="form-label" for="avatar">Ảnh đại diện</label>
+  </div>
+
+  <!-- Submit button -->
+  <button type="submit" class="btn btn-primary btn-block mb-4" style="margin: 0 auto;">Edit</button>
+</form>

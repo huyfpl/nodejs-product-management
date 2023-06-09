@@ -8,12 +8,12 @@ controller.list = (req, res) => {
       if (err) {
         res.json(err);
       }
-      res.render('home', { data: products });
+      res.render('quanlysanpham/home', { data: products });
     });
   });
 };
 controller.add_get=(req,res) => {
-  res.render('add', { Title: 'Thêm sản phẩm' })
+  res.render('quanlysanpham/add', { Title: 'Thêm sản phẩm' })
 }
 // 2. Ham luu du lieu (insert)
 controller.add_post = (req, res) => {
@@ -34,7 +34,7 @@ controller.edit_get = (req, res) => {
    
     req.getConnection((err, conn) => {
       conn.query("SELECT * FROM products WHERE idSP=?", [id], (err, rows) => {
-        res.render('edit', { object: rows[0] });
+        res.render('quanlysanpham/edit', { object: rows[0] });
       });
     });
   };
@@ -65,10 +65,84 @@ controller.edit_get = (req, res) => {
         if (err) {
           res.json(err);
         }
-        res.render('home', { data: products });
+        res.render('quanlysanpham/home', { data: products });
       });
     });
   };
   
+
+
+//user
+
+controller.list_user = (req, res) => {
+  req.getConnection((err, conn) => {
+    conn.query('SELECT * FROM users', (err, users) => {
+      if (err) {
+        res.json(err);
+      }
+      res.render('quanlyuser/home_user', { data: users });
+    });
+  });
+};
+controller.add_get_user=(req,res) => {
+  res.render('quanlyuser/add_user', { Title: 'Thêm sản phẩm' })
+}
+// 2. Ham luu du lieu (insert)
+controller.add_post_user = (req, res) => {
+  const data = req.body;
+  req.getConnection((err, conn) => {
+    const query = conn.query('INSERT INTO users SET ?', data, (err, user) => {
+      if (err) {
+        res.json(err);
+      }
+      console.log(user);
+      console.log(data);
+      res.redirect('/users');
+    });
+  });
+};
+controller.edit_get_user = (req, res) => {
+    const { id } = req.params;
+   
+    req.getConnection((err, conn) => {
+      conn.query("SELECT * FROM users WHERE id=?", [id], (err, rows) => {
+        res.render('quanlyuser/edit_user', { object: rows[0] });
+      });
+    });
+  };
+  
+  controller.edit_post_user = (req, res) => {
+    const { id } = req.params;
+    const newuser = req.body;
+    console.log(id);
+    req.getConnection((err, conn) => {
+      conn.query('UPDATE users SET ? WHERE id=?', [newuser, id], (err, rows) => {
+        res.redirect('/users');
+      });
+    });
+  };
+  
+  controller.delete_user = (req, res) => {
+    const { id } = req.params;
+    req.getConnection((err, conn) => {
+      conn.query('DELETE FROM users WHERE id = ?', [id], (err, rows) => {
+        res.redirect('/users');
+      });
+    });
+  };
+  controller.search_user = (req, res) => {
+    const { name } = req.query;
+    req.getConnection((err, conn) => {
+      conn.query('SELECT * FROM users WHERE ten LIKE ?', `%${ten}%`, (err, users) => {
+        if (err) {
+          res.json(err);
+        }
+        res.render('quanlyuser/home_user', { data: users });
+      });
+    });
+  };
+  
+
+
   
 module.exports = controller;

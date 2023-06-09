@@ -1,0 +1,145 @@
+<style>
+  .container {
+    max-width: 100%;
+    margin: 10px auto;
+  }
+
+  .search-form {
+    margin-bottom: 20px;
+  }
+
+  .input-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-control {
+    width: 200px;
+  }
+
+  .btn-primary {
+    margin-left: 10px;
+  }
+
+  h1 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+  }
+
+  table th,
+  table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+
+  table th:first-child,
+  table td:first-child,
+  table th:nth-child(2),
+  table td:nth-child(2) {
+    width: 10%;
+  }
+
+  table th:nth-child(3),
+  table td:nth-child(3) {
+    width: 20%;
+  }
+
+  table th:nth-child(4),
+  table td:nth-child(4),
+  table th:nth-child(5),
+  table td:nth-child(5),
+  table th:nth-child(6),
+  table td:nth-child(6) {
+    width: 15%;
+  }
+
+  table td img {
+    display: block;
+    margin: 0 auto;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 50%;
+  }
+
+  .btn-edit {
+    background-color: green;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+
+  .btn-delete {
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+</style>
+
+<div class="container">
+  <form action="/search_user" method="get" class="search-form">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Enter employee name" name="ten">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+
+  <a href="/add_user">
+    <h1>Thêm user</h1>
+  </a>
+
+  <table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+        <th>Mã</th>
+        <th>Họ và tên</th>
+        <th>Tên tài khoản</th>
+        <th>Địa chỉ</th>
+        <th>Số điện thoại</th>
+        <th>Ảnh đại diện</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data}}
+      <tr>
+        <td>
+          <p class="fw-normal mb-1">{{this.id}}</p>
+        </td>
+        <td>
+          <p class="fw-normal mb-1">{{this.ten}}</p>
+        </td>
+        <td>
+          <p class="fw-normal mb-1">{{this.tentaikhoan}}</p>
+        </td>
+        <td>
+          <p>{{this.dia_chi}}</p>
+        </td>
+        <td>
+          <p>{{this.sdt}}</p>
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+            <img src="{{this.avatar}}" alt="lỗi ảnh!" class="rounded-circle">
+          </div>
+        </td>
+        <td>
+          <a href="/edit_user/{{this.id}}" class="btn btn-edit">Edit</a>
+          <a href="/delete_user/{{this.id}}" class="btn btn-delete"
+            onclick="return confirm('Bạn có muốn xóa thật không?')">Delete</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

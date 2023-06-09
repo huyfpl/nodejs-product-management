@@ -2,15 +2,20 @@
 const Controller = require('../controllers/Controller');
 const express=require('express');
 const router= express.Router();
-//thu vien dieu huong
-//tham chieu controller
-//dinh nghia ac request
-router.get('/',Controller.list);//neu goi ve trang chu, liet ke danh sach (hien thi)
-
-router.get('/add',Controller.add_get);//them khach hang
-router.post('/add',Controller.add_post);//them khach hang
+//sapham
+router.get('/',Controller.list);
+router.get('/add',Controller.add_get);
+router.post('/add',Controller.add_post);
 router.get('/edit/:id', Controller.edit_get);
 router.post('/edit/:id', Controller.edit_post);
-router.get('/delete/:id',Controller.delete);//xoa
-router.get('/search',Controller.search);//xoa
+router.get('/delete/:id',Controller.delete);
+router.get('/search',Controller.search);
+//user
+router.get('/users',Controller.list_user);
+router.get('/add_user',Controller.add_get_user);
+router.post('/add_user',Controller.add_post_user);
+router.get('/edit_user/:id', Controller.edit_get_user);
+router.post('/edit_user/:id', Controller.edit_post_user);
+router.get('/delete_user/:id',Controller.delete_user);
+router.get('/search_user',Controller.search_user);
 module.exports = router;
