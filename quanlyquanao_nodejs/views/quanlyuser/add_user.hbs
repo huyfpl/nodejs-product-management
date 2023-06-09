@@ -1,0 +1,41 @@
+<form action="/add_user" method="post" class="container"
+    style="padding: 30px;  max-width: 400px; margin: 10px auto; background-color: aquamarine;">
+    <!-- 2 column grid layout with text inputs for the first and last names -->
+    <div class="row mb-4 ">
+        <div class="form-outline mb-4 " style="text-align: center;">
+            <h3> Thêm người dùng mới </h3>
+        </div>
+        <div class="col">
+            <div class="form-outline mb-3">
+                <input type="text" id="ten" class="form-control" name="ten" required />
+                <label class="form-label" for="tenSP">Họ và tên</label>
+            </div>
+        </div>
+           
+
+         <div class="form-outline mb-4">
+                <input type="text" id="tentaikhoan" class="form-control" name="tentaikhoan" required />
+                <label class="form-label" for="tentaikhoan">Tên tài khoản</label>
+            </div>
+         <div class="form-outline mb-4">
+                <input type="text" id="pass" class="form-control" name="pass" required />
+                <label class="form-label" for="pass">Password</label>
+            
+    </div>
+    <div class="form-outline mb-4">
+        <input type="text" id="dia_chi" class="form-control" name="dia_chi" required />
+        <label class="form-label" for="dia_chi">Địa chỉ</label>
+    </div>
+    <div class="form-outline mb-4">
+        <input type="text" id="sdt" class="form-control" name="sdt" required />
+        <label class="form-label" for="sdt">Số điện thoại</label>
+    </div>
+    <div class="form-outline mb-4">
+        <input type="number" id="avatar" class="form-control" name="avatar" required />
+        <label class="form-label" for="avatar">ảnh đại diện</label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block mb-4">add</button>
+
+
+
+</form>
