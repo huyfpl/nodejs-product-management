@@ -131,7 +131,7 @@ controller.edit_get_user = (req, res) => {
     });
   };
   controller.search_user = (req, res) => {
-    const { name } = req.query;
+    const { ten } = req.query;
     req.getConnection((err, conn) => {
       conn.query('SELECT * FROM users WHERE ten LIKE ?', `%${ten}%`, (err, users) => {
         if (err) {
