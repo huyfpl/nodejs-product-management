@@ -29,6 +29,8 @@ app.use(myConnection(mysql, {
     password: '%rvhFjK!9fSec8p',
     port: 3306,
     database: 'freedb_test_sanpham'
+    ,
+    connectTimeout:10000
 }, 'single'));
 
 
