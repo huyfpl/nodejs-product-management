@@ -1,4 +1,5 @@
-<form action="/edit/{{object.idSP}}" method="post" class="container" style="padding: 30px; max-width: 400px; margin: 10px auto; background-color: rgb(255, 164, 45);">
+<form action="/edit/{{object.idSP}}" method="post" class="container"
+  style="padding: 30px; max-width: 400px; margin: 10px auto; background-color: rgb(255, 164, 45);">
   <!-- 2 column grid layout with text inputs for the first and last names -->
   <div class="row mb-4">
     <div class="form-outline mb-4" style="text-align: center;">
@@ -20,26 +21,40 @@
     <label class="form-label" for="anhSP">Ảnh sản phẩm</label>
     {{/if}}
   </div>
-  
+
   <div class="form-outline mb-4">
     <input type="text" id="sizeSP" class="form-control" name="sizeSP" required value="{{object.sizeSP}}" />
     <label class="form-label" for="form3Example3">Kích thước</label>
   </div>
-  
+
   <div class="form-outline mb-4">
     <input type="number" id="giaNhap" class="form-control" name="giaNhap" required value="{{object.giaNhap}}" />
     <label class="form-label" for="giaNhap">Giá nhập</label>
   </div>
-  
+
   <div class="form-outline mb-4">
     <input type="number" id="giaBan" class="form-control" name="giaBan" required value="{{object.giaBan}}" />
     <label class="form-label" for="giaBan">Giá bán</label>
   </div>
-  
+
   <div class="form-outline mb-4">
     <input type="number" id="SoLuong" class="form-control" name="SoLuong" required value="{{object.SoLuong}}" />
     <label class="form-label" for="SoLuong">Số Lượng</label>
   </div>
+<div class="form-outline mb-4">
+     <div style="margin-bottom: 5px;">Danh mục hiện tại:<span> {{object.ten_danhmuc}}</span></div>
+    <select id="id_danhmuc" class="form-control" name="id_danhmuc" required>
+        <option value="" disabled selected>Chọn danh mục</option>
+        {{#each data}}
+        <option value="{{this.id_danhmuc}}" {{#if (eq this.id_danhmuc object.id_danhmuc)}}selected{{/if}}>
+            {{this.ten_danhmuc}}</option>
+        {{/each}}
+    </select>
+    <label class="form-label" for="id_danhmuc">Danh mục</label>
+</div>
+
+
+
 
   <!-- Submit button -->
   <button type="submit" class="btn btn-primary btn-block mb-4" style="margin: 0 auto;">Edit</button>
