@@ -47,20 +47,34 @@ module.exports.post_list_api_user = (req, res) => {
     });
   });
 };
-
-//ketthuccode moi//
-/////da comment/
-// module.exports.post_list_api_user = (req, res) => {
-//   const {tentaikhoan,pass, ten} = req.body;
-//   const data = { tentaikhoan, pass}; 
-//   req.getConnection((err, conn) => {
-//     const query = conn.query('INSERT INTO users SET ?', data, (err, user) => {
-//       if (err) {
-//         res.json(err);
-//       }
-//       console.log(user);
-//       console.log(data);
-//     });
-//   });
-// };
-//oke
+// danh sách danh mục 
+module.exports.get_list_api_danhmuc = (req, res) => {
+ 
+  req.getConnection((err, conn) => {
+    if (err) {
+      res.json(err);
+    } else {
+      conn.query('SELECT * FROM danhmuc', (err, danhmuc) => {
+        if (err) {
+          res.json(err);
+        } else {
+          res.json({ danhmuc: danhmuc });
+        }
+      });
+    }
+  });
+};
+// lấy danh sách theo danh mục
+module.exports.get_list_api_sanpham_id_danhmuc = (req, res) => {
+  const { id } = req.params;
+  req.getConnection((err, conn) => {
+    if (err) throw err;
+    conn.query("SELECT * FROM products WHERE id_danhmuc = ?", [id], (err, products) => {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json({ products: products });
+      }
+    });
+  });
+};
