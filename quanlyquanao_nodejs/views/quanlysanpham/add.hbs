@@ -8,12 +8,6 @@
 
         <div class="col">
             <div class="form-outline">
-                <input type="text" id="idSP" class="form-control" name="idSP" required />
-                <label class="form-label" for="">mã sản phẩm</label>
-            </div>
-        </div>
-        <div class="col">
-            <div class="form-outline">
                 <input type="text" id="tenSP" class="form-control" name="tenSP" required/>
                 <label class="form-label" for="tenSP">tên sản phẩm</label>
             </div>
@@ -40,8 +34,16 @@
         <input type="number" id="SoLuong" class="form-control" name="SoLuong" required/>
         <label class="form-label" for="SoLuong">Số lượng</label>
     </div>
-
-
+  <div class="form-outline mb-4">
+        <select id="id_danhmuc" class="form-control" name="id_danhmuc" required>
+            <option value="" disabled selected>Chọn danh mục</option>
+            <option value="1">Quần</option>
+            <option value="2">Áo</option>
+            <option value="3">Giầy </option>
+            <option value="4">Dép</option>
+        </select>
+        <label class="form-label" for="id_danhmuc">Danh mục</label>
+ </div>
     <!-- Submit button -->
     <button type="submit" class="btn btn-primary btn-block mb-4">add</button>
 

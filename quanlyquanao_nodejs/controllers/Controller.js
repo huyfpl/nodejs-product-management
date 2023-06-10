@@ -30,15 +30,22 @@ controller.add_post = (req, res) => {
   });
 };
 controller.edit_get = (req, res) => {
-    const { id } = req.params;
-   
-    req.getConnection((err, conn) => {
-      conn.query("SELECT * FROM products WHERE idSP=?", [id], (err, rows) => {
-        res.render('quanlysanpham/edit', { object: rows[0] });
+  const { id } = req.params;
+  req.getConnection((err, conn) => {
+    if (err) throw err;
+    conn.query("SELECT products.*, danhmuc.ten_danhmuc \
+    FROM products \
+    INNER JOIN danhmuc ON products.id_danhmuc = danhmuc.id_danhmuc \
+    WHERE products.idSP = ?", [id], (err, rows) => {
+      if (err) throw err;
+      conn.query("SELECT * FROM danhmuc", (err, danhmuc) => {
+        if (err) throw err;
+        res.render('quanlysanpham/edit', { object: rows[0], data:danhmuc });
       });
     });
-  };
-  
+  });
+};
+
   controller.edit_post = (req, res) => {
     const { id } = req.params;
     const newProduct = req.body;
