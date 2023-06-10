@@ -20,7 +20,7 @@ module.exports.get_list_api_user = (req, res) => {
     if (err) {
       res.json(err);
     } else {
-      conn.query('SELECT * FROM users', (err, users) => {
+      conn.query('SELECT tentaikhoan,pass FROM users', (err, users) => {
         if (err) {
           res.json(err);
         } else {
