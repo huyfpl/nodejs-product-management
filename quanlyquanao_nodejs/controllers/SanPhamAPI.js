@@ -14,13 +14,14 @@ module.exports.get_list_api_sanpham = (req, res) => {
     }
   });
 };
+// lấy all danh sách user
 module.exports.get_list_api_user = (req, res) => {
   console.log(req + "huy")
   req.getConnection((err, conn) => {
     if (err) {
       res.json(err);
     } else {
-      conn.query('SELECT tentaikhoan,pass FROM users', (err, users) => {
+      conn.query('SELECT id,tentaikhoan,pass FROM users', (err, users) => {
         if (err) {
           res.json(err);
         } else {
@@ -28,6 +29,20 @@ module.exports.get_list_api_user = (req, res) => {
         }
       });
     }
+  });
+};
+// lấy danh sách user theo id
+module.exports.get_list_api_user_id = (req, res) => {
+  const { id } = req.params;
+  req.getConnection((err, conn) => {
+    if (err) throw err;
+    conn.query("SELECT * FROM users WHERE id = ?", [id], (err, users) => {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json({ products: users });
+      }
+    });
   });
 };
 //bat dau code moi//
