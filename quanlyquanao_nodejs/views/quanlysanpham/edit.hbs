@@ -43,7 +43,7 @@
   </div>
 <div class="form-outline mb-4">
      <div style="margin-bottom: 5px;">Danh mục hiện tại:<span> {{object.ten_danhmuc}}</span></div>
-    <select id="id_danhmuc" class="form-control" name="id_danhmuc" required>
+    <select id="id_danhmuc" class="form-control" name="id_danhmuc">
         <option value="" disabled selected>Chọn danh mục</option>
         {{#each data}}
         <option value="{{this.id_danhmuc}}" {{#if (eq this.id_danhmuc object.id_danhmuc)}}selected{{/if}}>
