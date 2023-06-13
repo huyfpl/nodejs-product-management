@@ -79,12 +79,35 @@ module.exports.get_list_api_danhmuc = (req, res) => {
     }
   });
 };
+
 // lấy danh sách theo danh mục
 module.exports.get_list_api_sanpham_id_danhmuc = (req, res) => {
   const { id } = req.params;
   req.getConnection((err, conn) => {
     if (err) throw err;
     conn.query("SELECT * FROM products WHERE id_danhmuc = ?", [id], (err, products) => {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json({ products: products });
+      }
+    });
+  });
+};
+// lấy giỏ hàng theo id user
+module.exports.get_list_api_giohang = (req, res) => {
+  const { id } = req.params;
+  req.getConnection((err, conn) => {
+    if (err) throw err;
+    const query = `
+      SELECT u.ten, p.tenSP, p.anhSP, d.ten_danhmuc, g.soluong
+      FROM users u
+      JOIN giohang g ON u.id = g.id
+      JOIN products p ON g.idSP = p.idSP
+      JOIN danhmuc d ON p.id_danhmuc = d.id_danhmuc
+      WHERE u.id = ?;
+    `;
+    conn.query(query, [id], (err, products) => {
       if (err) {
         res.json(err);
       } else {

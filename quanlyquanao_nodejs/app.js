@@ -27,7 +27,7 @@ app.use(morgan('dev'));
 app.use(myConnection(mysql, {
     host: 'sql.freedb.tech',
     user: 'freedb_sanpham_test',
-    password: '@GbTmU&g9mPeZaM',
+    password: 'Ur??M9GVVxrN&Q*',
     port: 3306,
     database: 'freedb_test_sanpham'
     ,
