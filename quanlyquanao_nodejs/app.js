@@ -42,5 +42,5 @@ app.use(express.static(publicPath));
 
 // Khởi động server
 app.listen(app.get('port'), '192.168.0.102', () => {
-    console.log(`Server đang khởi động ở cổng ${app.get('port')}`);
+    console.log(`Server đang khởi động ở host ${app.get('port')}`);
   });
