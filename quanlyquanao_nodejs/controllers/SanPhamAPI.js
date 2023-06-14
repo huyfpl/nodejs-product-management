@@ -106,7 +106,6 @@ module.exports.get_list_api_giohang = (req, res) => {
     JOIN danhmuc ON products.id_danhmuc = danhmuc.id_danhmuc
     JOIN users ON giohang.id = users.id
     WHERE users.id = ?;
-
     `;
     conn.query(query, [id], (err, products) => {
       if (err) {
@@ -164,6 +163,5 @@ module.exports.add_to_giohang = (req, res) => {
   });
 };
 
-// kiểm tra có trong giỏ hàng thì tăng số lượng
-
+// kiểm tra có trong giỏ hàng thì tăng số
 
