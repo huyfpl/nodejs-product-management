@@ -100,7 +100,7 @@ module.exports.get_list_api_giohang = (req, res) => {
   req.getConnection((err, conn) => {
     if (err) throw err;
     const query = `
-    SELECT products.tenSP, products.giaBan, products.anhSP, danhmuc.ten_danhmuc
+    SELECT products.tenSP,products.idSP, products.giaBan, products.anhSP, danhmuc.ten_danhmuc,giohang.soluong
     FROM giohang
     JOIN products ON giohang.idSP = products.idSP
     JOIN danhmuc ON products.id_danhmuc = danhmuc.id_danhmuc
@@ -116,7 +116,6 @@ module.exports.get_list_api_giohang = (req, res) => {
     });
   });
 };
-// kiểm tra tồn tại trong giỏ hàng hay chưa
 module.exports.add_to_giohang = (req, res) => {
   const { id, idSP } = req.params;
   req.getConnection((err, conn) => {
@@ -131,7 +130,6 @@ module.exports.add_to_giohang = (req, res) => {
         res.json(err);
       } else {
         if (results.length > 0) {
-          // Sản phẩm đã có trong giỏ hàng, tăng số lượng lên 1
           const updateQuery = `
           UPDATE giohang
           SET soluong = soluong + 1
@@ -145,7 +143,6 @@ module.exports.add_to_giohang = (req, res) => {
             }
           });
         } else {
-          // Sản phẩm chưa có trong giỏ hàng, thêm mới vào giỏ hàng với số lượng là 1
           const insertQuery = `
           INSERT INTO giohang (id, idSP, soluong)
           VALUES (?, ?, 1);
@@ -163,5 +160,41 @@ module.exports.add_to_giohang = (req, res) => {
   });
 };
 
-// kiểm tra có trong giỏ hàng thì tăng số
+// kiểm tra có trong giỏ hàng thì tăng số lượng
+module.exports.tang_so_luong_giohang = (req, res) => {
+  const { id, idSP } = req.params;
+  req.getConnection((err, conn) => {
+    if (err) throw err;
+    const updateQuery = `
+      UPDATE giohang
+      SET soluong = soluong + 1
+      WHERE id = ? AND idSP = ?;
+    `;
+    conn.query(updateQuery, [id, idSP], (err, updateResult) => {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json({ message: 'Số lượng sản phẩm đã được tăng.' });
+      }
+    });
+  });
+};
+module.exports.giam_so_luong_giohang = (req, res) => {
+  const { id, idSP } = req.params;
+  req.getConnection((err, conn) => {
+    if (err) throw err;
+    const updateQuery = `
+      UPDATE giohang
+      SET soluong = soluong - 1
+      WHERE id = ? AND idSP = ?;
+    `;
+    conn.query(updateQuery, [id, idSP], (err, updateResult) => {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json({ message: 'Số lượng sản phẩm đã được giảm.' });
+      }
+    });
+  });
+};
 
