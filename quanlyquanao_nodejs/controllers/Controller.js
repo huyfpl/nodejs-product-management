@@ -60,8 +60,27 @@ controller.edit_get = (req, res) => {
   controller.delete = (req, res) => {
     const { id } = req.params;
     req.getConnection((err, conn) => {
-      conn.query('DELETE FROM products WHERE idSP = ?', [id], (err, rows) => {
-        res.redirect('/');
+      if (err) {
+        console.log(err);
+        return res.status(500).json({ message: 'Internal server error' });
+      }
+      conn.query('DELETE FROM giohang WHERE idSP = ?', [id], (err, giohangResult) => {
+        if (err) {
+       
+          console.log(err);
+          res.redirect('/');
+        }
+        conn.query('DELETE FROM products WHERE idSP = ?', [id], (err, productsResult) => {
+          if (err) {
+         
+            console.log(err);
+            res.redirect('/');
+          }
+          if (productsResult.affectedRows === 0) {
+            return res.status(404).json({ message: 'Product not found' });
+          }
+          res.redirect('/');
+        });
       });
     });
   };
