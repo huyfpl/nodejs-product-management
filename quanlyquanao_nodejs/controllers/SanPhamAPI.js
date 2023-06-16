@@ -45,6 +45,19 @@ module.exports.get_list_api_user_id = (req, res) => {
     });
   });
 };
+
+//
+//cập nhật  user
+module.exports.edit_capnhat_user = (req, res) => {
+  const { id } = req.params;
+  const newuser = req.body;
+  console.log(id);
+  req.getConnection((err, conn) => {
+    conn.query('UPDATE users SET ? WHERE id=?', [newuser, id], (err, users) => {
+      res.json({ products: users });
+    });
+  });
+};
 //bat dau code moi//
 
 module.exports.post_list_api_user = (req, res) => {
