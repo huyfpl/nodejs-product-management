@@ -45,6 +45,19 @@ module.exports.get_list_api_user_id = (req, res) => {
     });
   });
 };
+
+//
+//cập nhật  user
+module.exports.edit_capnhat_user = (req, res) => {
+  const { id } = req.params;
+  const newuser = req.body;
+  console.log(id);
+  req.getConnection((err, conn) => {
+    conn.query('UPDATE users SET ? WHERE id=?', [newuser, id], (err, users) => {
+      res.json({ products: users });
+    });
+  });
+};
 //bat dau code moi//
 
 module.exports.post_list_api_user = (req, res) => {
@@ -192,9 +205,36 @@ module.exports.giam_so_luong_giohang = (req, res) => {
       if (err) {
         res.json(err);
       } else {
-        res.json({ message: 'Số lượng sản phẩm đã được giảm.' });
+        const checkQuery = `
+          SELECT soluong
+          FROM giohang
+          WHERE id = ? AND idSP = ?;
+        `;
+        conn.query(checkQuery, [id, idSP], (err, checkResult) => {
+          if (err) {
+            res.json(err);
+          } else {
+            const soluong = checkResult[0].soluong;
+            if (soluong === 0) {
+              const deleteQuery = `
+                DELETE FROM giohang
+                WHERE id = ? AND idSP = ?;
+              `;
+              conn.query(deleteQuery, [id, idSP], (err, deleteResult) => {
+                if (err) {
+                  res.json(err);
+                } else {
+                  res.json({ message: 'Số lượng sản phẩm đã được giảm. Sản phẩm đã được xóa khỏi giỏ hàng.' });
+                }
+              });
+            } else {
+              res.json({ message: 'Số lượng sản phẩm đã được giảm.' });
+            }
+          }
+        });
       }
     });
   });
 };
+
 
