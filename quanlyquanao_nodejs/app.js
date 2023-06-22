@@ -27,7 +27,7 @@ app.use(morgan('dev'));
 app.use(myConnection(mysql, {
     host: 'sql.freedb.tech',
     user: 'freedb_sanpham_test',
-    password: 'Q54VpPsUY3mgk@F',
+    password: 'AMZquU%qU8y4!dV',
     port: 3306,
     database: 'freedb_test_sanpham'
     ,
@@ -41,6 +41,6 @@ const publicPath = path.resolve(__dirname, "public");
 app.use(express.static(publicPath));
 
 // Khởi động server
-app.listen(app.get('port'), '192.168.0.102', () => {
+app.listen(app.get('port'), '103.81.84.198', () => {
     console.log(`Server đang khởi động ở host ${app.get('port')}`);
   });

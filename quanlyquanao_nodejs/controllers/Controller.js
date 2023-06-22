@@ -4,7 +4,9 @@ let controller = {};
 // 1. Ham doc du lieu (select)
 controller.list = (req, res) => {
   req.getConnection((err, conn) => {
-    conn.query('SELECT * FROM products', (err, products) => {
+    conn.query('SELECT products.*, sale.phantramgiamgia,sale.anhsale\
+    FROM products\
+    LEFT JOIN sale ON products.idSP = sale.idSP', (err, products) => {
       if (err) {
         res.json(err);
       }

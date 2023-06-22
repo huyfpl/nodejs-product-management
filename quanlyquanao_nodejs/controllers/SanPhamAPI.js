@@ -4,7 +4,9 @@ module.exports.get_list_api_sanpham = (req, res) => {
     if (err) {
       res.json(err);
     } else {
-      conn.query('SELECT * FROM products', (err, products) => {
+      conn.query('SELECT products.*, sale.phantramgiamgia,sale.anhsale\
+      FROM products\
+      LEFT JOIN sale ON products.idSP = sale.idSP', (err, products) => {
         if (err) {
           res.json(err);
         } else {
@@ -14,6 +16,22 @@ module.exports.get_list_api_sanpham = (req, res) => {
     }
   });
 };
+//
+module.exports.get_search_sanpham = (req, res) => {
+  const { name } = req.query;
+  req.getConnection((err, conn) => {
+    conn.query('SELECT products.*, sale.phantramgiamgia, sale.anhsale\
+    FROM products\
+    LEFT JOIN sale ON products.idSP = sale.idSP\
+    WHERE products.tenSP LIKE ?', `%${name}%`, (err, products) => {
+      if (err) {
+        res.json(err);
+      }
+      res.json({ products: products });
+    });
+  });
+};
+
 // lấy all danh sách user
 module.exports.get_list_api_user = (req, res) => {
   console.log(req + "huy")
@@ -77,7 +95,7 @@ module.exports.post_list_api_user = (req, res) => {
 };
 // danh sách danh mục 
 module.exports.get_list_api_danhmuc = (req, res) => {
- 
+
   req.getConnection((err, conn) => {
     if (err) {
       res.json(err);
@@ -98,7 +116,10 @@ module.exports.get_list_api_sanpham_id_danhmuc = (req, res) => {
   const { id } = req.params;
   req.getConnection((err, conn) => {
     if (err) throw err;
-    conn.query("SELECT * FROM products WHERE id_danhmuc = ?", [id], (err, products) => {
+    conn.query("SELECT products.*, sale.phantramgiamgia, sale.anhsale\
+    FROM products\
+    LEFT JOIN sale ON products.idSP = sale.idSP\
+    WHERE products.id_danhmuc = ?", [id], (err, products) => {
       if (err) {
         res.json(err);
       } else {
@@ -113,12 +134,14 @@ module.exports.get_list_api_giohang = (req, res) => {
   req.getConnection((err, conn) => {
     if (err) throw err;
     const query = `
-    SELECT products.tenSP,products.idSP, products.giaBan, products.anhSP, danhmuc.ten_danhmuc,giohang.soluong
+    SELECT products.tenSP, products.idSP, products.giaBan, products.anhSP, danhmuc.ten_danhmuc, giohang.soluong, sale.phantramgiamgia, sale.anhsale
     FROM giohang
     JOIN products ON giohang.idSP = products.idSP
     JOIN danhmuc ON products.id_danhmuc = danhmuc.id_danhmuc
     JOIN users ON giohang.id = users.id
-    WHERE users.id = ?;
+    LEFT JOIN sale ON products.idSP = sale.idSP
+    WHERE users.id = ?
+;
     `;
     conn.query(query, [id], (err, products) => {
       if (err) {
