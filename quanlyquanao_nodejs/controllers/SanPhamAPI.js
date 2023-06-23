@@ -134,7 +134,7 @@ module.exports.get_list_api_giohang = (req, res) => {
   req.getConnection((err, conn) => {
     if (err) throw err;
     const query = `
-    SELECT products.tenSP, products.idSP, products.giaBan, products.anhSP, danhmuc.ten_danhmuc, giohang.soluong, sale.phantramgiamgia, sale.anhsale
+    SELECT users.dia_chi,users.ten,users.sdt,products.sizeSP,products.tenSP, products.idSP, products.giaBan, products.anhSP, danhmuc.ten_danhmuc, giohang.soluong, sale.phantramgiamgia, sale.anhsale
     FROM giohang
     JOIN products ON giohang.idSP = products.idSP
     JOIN danhmuc ON products.id_danhmuc = danhmuc.id_danhmuc
